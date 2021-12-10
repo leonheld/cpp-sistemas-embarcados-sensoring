@@ -1,1 +1,0 @@
-#include "Temperatura.h"

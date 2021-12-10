@@ -5,4 +5,8 @@
 #pragma once
 
 #include "Sensor.h"
+
+namespace sensoring {
 class Pressure : public Sensor {};
+
+}  // namespace sensoring
