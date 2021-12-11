@@ -1,13 +1,19 @@
 #pragma once
 
-//#include "ClockCalendar.h"
+#include "../ClockCalendar/ClockCalendar.h"
 #include "Sensor.h"
+#include <memory>
 
 namespace sensoring {
 class Temperature : public Sensor {
-  // ClockCalendar dataHora;
+ public:
+  Temperature() { this->readSensor(); }
+  friend std::ostream& operator<<(std::ostream&, Temperature temperature);
 
- protected:
-  void readSensor();
+ private:
+  auto readSensor() -> void override;
+  auto GetRandomNumberForTemperature() -> float;
+  std::unique_ptr<ClockCalendar> dateTime_;
 };
+
 }  // namespace sensoring

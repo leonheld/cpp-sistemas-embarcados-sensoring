@@ -19,4 +19,4 @@ RUN apt-get update \
       tar \
       python \
       python-dev \
-  && apt-get clean
+      libgoogle-glog-dev && apt-get clean

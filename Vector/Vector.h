@@ -13,26 +13,25 @@
 #include <algorithm>
 #include <iostream>
 
-int err_arr[1]{-1};
+const int err_arr[1]{-1};
 
-namespace Utils {
+namespace utils {
 template <typename T>
 class Vector {
  public:
-  explicit Vector(unsigned int size) {
-    size_ = size;
-    elements_ = new T[size_];
-  }
+  explicit Vector(unsigned int size) : size_(size) { elements_ = new T[size_]; }
 
   ~Vector() { delete[] elements_; }
 
   T& operator[](unsigned int index) {
-    if (index < occupied_until) {
+    return elements_[index];
+    /*if (index < occupied_until) {
       return elements_[index];
     } else {
       // FIXME(ljh): the most stupid error handling in the entire existence.
       return err_arr[0];
     }
+     */
   }
 
   auto remove_at(unsigned int pos) -> void {
@@ -78,4 +77,4 @@ class Vector {
   }
 };
 
-}  // namespace Utils
+}  // namespace utils
