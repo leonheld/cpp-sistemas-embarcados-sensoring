@@ -41,4 +41,10 @@ auto Temperature::prettyPrint() -> void {
             << this->getID() << " is " << this->getValor() << "º Celsius."
             << std::endl;
 }
+bool Temperature::wasDoneBefore(int day, int month, int year) {
+  dateTime_->day();
+
+  return dateTime_->year() < year && dateTime_->month() < month &&
+         dateTime_->day() < day;
+}
 }  // namespace sensoring

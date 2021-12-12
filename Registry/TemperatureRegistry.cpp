@@ -15,7 +15,7 @@ auto TemperatureRegistry::List() -> void {
   }
 }
 
-auto TemperatureRegistry::DeleteEntry() -> void {
+auto TemperatureRegistry::Delete() -> void {
   std::cout << "Which temperature entry to delete?" << std::endl;
   this->List();
 
@@ -38,9 +38,9 @@ auto TemperatureRegistry::DeleteEntry() -> void {
 auto TemperatureRegistry::Consult() -> void {
   std::cout
       << "There are three consulting options: " << std::endl
-      << "1. Consult all readings below a certain integer temperature."
+      << "1. Consult all readings above a certain integer temperature."
       << std::endl
-      << "2. Consult all readings above a certain integer temperature."
+      << "2. Consult all readings below a certain integer temperature."
       << std::endl
       << "3. Consult all readings below a certain date (day/month/year format)."
       << std::endl
@@ -48,35 +48,50 @@ auto TemperatureRegistry::Consult() -> void {
       << std::endl;
 
   enum CONSULT_STATES {
-    kReadingsBelowMagnitudeThreshold = 1,
-    kReadingsAboveMagnitudeThreshold,
+    kReadingsAboveDateThreshold = 1,
     kReadingsBelowDateThreshold,
-    kReadingsAboveDateThreshold
+    kReadingsAboveMagnitudeThreshold,
+    kReadingsBelowMagnitudeThreshold
   };
 
   int option = -1;
   std::cout << "Choose an option." << std::endl;
   std::cin >> option;
 
-  std::string date_option;
+  int day;
+  int month;
+  int year;
+
   int magnitude_option;
   switch (option) {
     case CONSULT_STATES::kReadingsAboveDateThreshold:
-      std::cout << "Chose option 1. Type date in the day/month/year format to "
-                   "search for readings above such date."
+      std::cout << "Chose option 1. Type the day/month/year to search for "
+                   "readings above such date."
                 << std::endl;
-      std::cin >> date_option;
-      // FIXME(ljh): implement
-      // this->filterAndPrintBelowDate(date_option);
+
+      std::cout << "Type in day: " << std::endl;
+      std::cin >> day;
+      std::cout << "Type in month: " << std::endl;
+      std::cin >> month;
+      std::cout << "Type in year: " << std::endl;
+      std::cin >> year;
+
+      this->filterAndPrintAboveDate(day, month, year);
       break;
 
     case CONSULT_STATES::kReadingsBelowDateThreshold:
-      std::cout << "Chose option 2. Type date in the day/month/year format to "
-                   "search for readings above such date."
+      std::cout << "Chose option 2. Type the day/month/year to search for "
+                   "readings above such date."
                 << std::endl;
-      std::cin >> date_option;
-      // FIXME(ljh): implement
-      // this->filterAndPrintBelowDate(date_option);
+
+      std::cout << "Type in day: " << std::endl;
+      std::cin >> day;
+      std::cout << "Type in month: " << std::endl;
+      std::cin >> month;
+      std::cout << "Type in year: " << std::endl;
+      std::cin >> year;
+
+      this->filterAndPrintBelowDate(day, month, year);
       break;
 
     case CONSULT_STATES::kReadingsAboveMagnitudeThreshold:
@@ -104,5 +119,29 @@ auto TemperatureRegistry::Consult() -> void {
 }
 auto TemperatureRegistry::Peek(unsigned int index) -> Temperature {
   return readings_[index];
+}
+
+auto TemperatureRegistry::filterAndPrintAboveDate(int day, int month, int year)
+    -> void {
+  std::cout << "The following readings were done after " << day << "/" << month
+            << "/" << year << std::endl;
+
+  for (int i = 0; i < readings_.number_of_elements(); ++i) {
+    if (!readings_[i].wasDoneBefore(day, month, year)) {
+      readings_[i].prettyPrint();
+    }
+  }
+}
+
+auto TemperatureRegistry::filterAndPrintBelowDate(int day, int month, int year)
+    -> void {
+  std::cout << "The following readings were done before " << day << "/" << month
+            << "/" << year << std::endl;
+
+  for (int i = 0; i < readings_.number_of_elements(); ++i) {
+    if (readings_[i].wasDoneBefore(day, month, year)) {
+      readings_[i].prettyPrint();
+    }
+  }
 }
 }  // namespace sensoring

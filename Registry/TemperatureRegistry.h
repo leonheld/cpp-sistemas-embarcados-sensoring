@@ -10,9 +10,15 @@ class TemperatureRegistry : public Registry {
   TemperatureRegistry() = default;
   auto ReadAndSave() -> void override;
   auto List() -> void override;
-  auto DeleteEntry() -> void;
+  auto Delete() -> void override;
   auto Consult() -> void override;
   auto Peek(unsigned int index) -> Temperature;
+  auto filterAndPrintAboveDate(int day, int month, int year) -> void;
+  auto filterAndPrintBelowDate(int day, int month, int year) -> void;
+
+  // this->filterAndPrintAboveDate(date_option);
+  // this->filterAndPrintAboveMagnitude(magnitude_option);
+  // this->filterAndPrintBelowMagnitude(magnitude_option);
 
  private:
   utils::Vector<Temperature> readings_ = utils::Vector<Temperature>();

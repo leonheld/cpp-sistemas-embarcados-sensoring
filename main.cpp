@@ -61,13 +61,13 @@ int main() {
         break;
 
       case MENU_STATES::kDeleteTemperature:
-        temperature_registry->DeleteEntry();
+        temperature_registry->Delete();
         break;
-        /*
-                    case MENU_STATES::CONSULT_TEMPERATURE:
-                      temperature_registry->ConsultTemperature();
-                      break;
-                */
+
+      case MENU_STATES::kConsultTemperature:
+        temperature_registry->Consult();
+        break;
+
       case MENU_STATES::kListTemperatures:
         std::cout << "Listing all temperatures." << std::endl;
         temperature_registry->List();
