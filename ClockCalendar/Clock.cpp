@@ -13,8 +13,8 @@ auto Clock::readClock(int& hour, int& second, int& minute) -> void {
   minute = minute_;
 }
 
-auto Clock::setClockNow() -> void {  // nothing makes me happier than
-                                     // std::chrono. Maybe std::fmt will.
+auto Clock::ClockNow() -> void {  // nothing makes me happier than
+                                  // std::chrono. Maybe std::fmt will.
   using namespace std::chrono;
 
   auto now = system_clock::now();

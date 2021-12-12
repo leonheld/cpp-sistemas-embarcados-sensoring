@@ -12,7 +12,7 @@ auto Calendar::readCalendar(int& month, int& day, int& year) -> void {
   day = day_;
   year = year_;
 }
-auto Calendar::setCalendarNow() -> void {
+auto Calendar::CalendarNow() -> void {
   using namespace std::chrono;
 
   auto now = system_clock::now();

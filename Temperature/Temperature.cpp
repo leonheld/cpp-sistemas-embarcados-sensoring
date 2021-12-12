@@ -4,14 +4,24 @@
 
 namespace {
 // Like this one -> https://www.ti.com/lit/ds/symlink/lm35.pdf
-const std::string kTemperatureSensorId = "LM35";
+const int kTemperatureSensorId = 0001;
 }  // namespace
 
 namespace sensoring {
+
+Temperature::Temperature() {
+  dateTime_ = std::make_shared<utils::ClockCalendar>();
+}
+
+auto Temperature::newRead() -> void {
+  this->readSensor();
+  this->setID(kTemperatureSensorId);
+}
+
 auto Temperature::readSensor() -> void {
   this->setValor(GetRandomNumberForTemperature());
-  this->dateTime_->setCalendarNow();
-  this->dateTime_->setClockNow();
+  this->dateTime_->CalendarNow();
+  this->dateTime_->ClockNow();
 }
 auto Temperature::GetRandomNumberForTemperature() -> float {
   std::random_device random_seed;
@@ -25,5 +35,10 @@ auto Temperature::GetRandomNumberForTemperature() -> float {
 std::ostream& operator<<(std::ostream& os, Temperature temperature) {
   os << temperature.getValor();
   return os;
+}
+auto Temperature::prettyPrint() -> void {
+  std::cout << " Temperature gotten at " << this->timestamp() << " from sensor "
+            << this->getID() << " is " << this->getValor() << "º Celsius."
+            << std::endl;
 }
 }  // namespace sensoring

@@ -57,17 +57,17 @@ int main() {
   */
       case MENU_STATES::kReadTemperature:
         std::cout << "Reading and saving current temperature." << std::endl;
-        temperature_registry->ReadAndSaveCurrent();
+        temperature_registry->ReadAndSave();
+        break;
+
+      case MENU_STATES::kDeleteTemperature:
+        temperature_registry->DeleteEntry();
         break;
         /*
-            case MENU_STATES::DELETE_TEMPERATURE:
-              temperature_registry->DeleteTemperature();
-              break;
-
-            case MENU_STATES::CONSULT_TEMPERATURE:
-              temperature_registry->ConsultTemperature();
-              break;
-        */
+                    case MENU_STATES::CONSULT_TEMPERATURE:
+                      temperature_registry->ConsultTemperature();
+                      break;
+                */
       case MENU_STATES::kListTemperatures:
         std::cout << "Listing all temperatures." << std::endl;
         temperature_registry->List();

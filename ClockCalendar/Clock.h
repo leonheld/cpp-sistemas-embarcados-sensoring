@@ -12,7 +12,7 @@ class Clock {
     minute_ = 0;
     second_ = 0;
   };
-  auto setClockNow() -> void;
+  auto ClockNow() -> void;
   auto readClock(int& hour, int& second, int& minute) -> void;
 };
 }  // namespace utils

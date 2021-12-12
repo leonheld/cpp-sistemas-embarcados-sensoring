@@ -14,7 +14,7 @@ class Calendar {
     day_ = 0;
     year_ = 0;
   }
-  auto setCalendarNow() -> void;
+  auto CalendarNow() -> void;
   void readCalendar(int& month, int& day, int& year);
 };
 }  // namespace utils

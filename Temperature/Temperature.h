@@ -7,13 +7,15 @@
 namespace sensoring {
 class Temperature : public Sensor {
  public:
-  Temperature() {
-    dateTime_ = std::make_shared<utils::ClockCalendar>();
-    this->readSensor();
-  }
+
+  Temperature();
   friend std::ostream& operator<<(std::ostream&, Temperature temperature);
 
   auto timestamp() -> std::string { return dateTime_->getTimestamp(); }
+
+  auto prettyPrint() -> void;
+
+  auto newRead() -> void;
 
  private:
   auto readSensor() -> void override;

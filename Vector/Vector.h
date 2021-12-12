@@ -20,13 +20,15 @@ namespace utils {
 template <typename T>
 class Vector {
  public:
-  explicit Vector(unsigned int size) : size_(size) { elements_ = new T[size_]; }
+  // rationale: we start with a decent size array and resize dinamically. For
+  // more information, see utils::Vector::resize().
+  explicit Vector() : size_(20) { elements_ = new T[size_]; }
 
   ~Vector() { delete[] elements_; }
 
   T& operator[](unsigned int index) {
     return elements_[index];
-    /*if (index < occupied_until) {
+    /*if (index < number_of_elements_) {
       return elements_[index];
     } else {
       // FIXME(ljh): the most stupid error handling in the entire existence.
@@ -37,27 +39,29 @@ class Vector {
 
   auto remove_at(unsigned int pos) -> void {
     auto tmp = new T[size_ - 1];
-    // std::move would be better.
+
     for (int i = 0; i < pos; ++i) {
       tmp[i] = elements_[i];
     }
 
-    for (int i = pos + 1; i < size_; ++i) {
+    for (int i = pos + 1; i < number_of_elements_; ++i) {
       tmp[i - 1] = elements_[i];
     }
 
-    occupied_until--;
+    number_of_elements_--;
+    size_--;
     delete[] elements_;
     elements_ = tmp;
   }
 
+  auto number_of_elements() -> int { return number_of_elements_; }
   auto push_back(const T& element) -> void {
-    if (occupied_until == size_ - 1) {
+    if (number_of_elements_ == size_ - 1) {
       resize();
     }
-    if (occupied_until < size_) {
-      elements_[occupied_until] = element;
-      occupied_until++;
+    if (number_of_elements_ < size_) {
+      elements_[number_of_elements_] = element;
+      number_of_elements_++;
     } else {
       std::cout << "Oopses." << std::endl;
     }
@@ -65,7 +69,7 @@ class Vector {
 
  private:
   unsigned int size_;
-  unsigned int occupied_until = 0;
+  unsigned int number_of_elements_ = 0;
   T* elements_;
 
   auto resize() -> void {
