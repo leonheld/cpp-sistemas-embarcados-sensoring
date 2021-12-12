@@ -1,14 +1,20 @@
 #pragma once
 
+#include <iostream>
 namespace utils {
 class Calendar {
- private:
+ protected:
   int month_;
   int day_;
   int year_;
 
  public:
-  Calendar();
+  Calendar() {
+    month_ = 0;
+    day_ = 0;
+    year_ = 0;
+  }
+  auto setCalendarNow() -> void;
   void readCalendar(int& month, int& day, int& year);
 };
 }  // namespace utils

@@ -7,15 +7,14 @@
 #include <string>
 
 namespace utils {
-auto Clock::readClock(int& hour, int& second, int& minute, int& period)
-    -> void {
+auto Clock::readClock(int& hour, int& second, int& minute) -> void {
   hour = hour_;
   second = second_;
   minute = minute_;
-  period = period_;
 }
-Clock::Clock() {
-  // nothing makes me happier than std::chrono. Maybe std::fmt will.
+
+auto Clock::setClockNow() -> void {  // nothing makes me happier than
+                                     // std::chrono. Maybe std::fmt will.
   using namespace std::chrono;
 
   auto now = system_clock::now();
@@ -29,9 +28,9 @@ Clock::Clock() {
   minute << std::put_time(&bt, "%M");
   second << std::put_time(&bt, "%S");
 
-  hour_ = std::stoi(hour.str());
-  minute_ = std::stoi(minute.str());
-  second_ = std::stoi(second.str());
+  this->hour_ = std::stoi(hour.str());
+  this->minute_ = std::stoi(minute.str());
+  this->second_ = std::stoi(second.str());
 }
 
 }  // namespace utils

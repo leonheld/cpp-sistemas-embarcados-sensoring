@@ -11,6 +11,7 @@
  * 3. A push_back() member function
  * */
 #include <algorithm>
+#include <cstring>
 #include <iostream>
 
 const int err_arr[1]{-1};
@@ -51,10 +52,15 @@ class Vector {
   }
 
   auto push_back(const T& element) -> void {
-    // FIXME(ljh): should ideally resize if and only if it's near capacity
-    resize();
-    elements_[occupied_until] = element;
-    occupied_until++;
+    if (occupied_until == size_ - 1) {
+      resize();
+    }
+    if (occupied_until < size_) {
+      elements_[occupied_until] = element;
+      occupied_until++;
+    } else {
+      std::cout << "Oopses." << std::endl;
+    }
   }
 
  private:
@@ -69,11 +75,15 @@ class Vector {
     // this but not sure.
     uint64_t resize_factor = 2;
     auto tmp = new T[resize_factor * size_];
+    std::memset(tmp, 0, sizeof tmp);
+
     for (int i = 0; i < size_; ++i) {
       tmp[i] = elements_[i];
     }
+
     delete[] elements_;
     elements_ = tmp;
+    size_ = size_ * 2;
   }
 };
 
