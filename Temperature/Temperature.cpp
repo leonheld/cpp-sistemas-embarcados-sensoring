@@ -14,8 +14,8 @@ Temperature::Temperature() {
 }
 
 auto Temperature::newRead() -> void {
-  this->readSensor();
   this->setID(kTemperatureSensorId);
+  this->readSensor();
 }
 
 auto Temperature::readSensor() -> void {

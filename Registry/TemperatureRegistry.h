@@ -16,10 +16,6 @@ class TemperatureRegistry : public Registry {
   auto filterAndPrintAboveDate(int day, int month, int year) -> void;
   auto filterAndPrintBelowDate(int day, int month, int year) -> void;
 
-  // this->filterAndPrintAboveDate(date_option);
-  // this->filterAndPrintAboveMagnitude(magnitude_option);
-  // this->filterAndPrintBelowMagnitude(magnitude_option);
-
  private:
   utils::Vector<Temperature> readings_ = utils::Vector<Temperature>();
   void filterAndPrintAboveMagnitude(int magnitude);
