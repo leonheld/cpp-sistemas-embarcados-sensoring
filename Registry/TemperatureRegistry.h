@@ -22,5 +22,7 @@ class TemperatureRegistry : public Registry {
 
  private:
   utils::Vector<Temperature> readings_ = utils::Vector<Temperature>();
+  void filterAndPrintAboveMagnitude(int magnitude);
+  void filterAndPrintBelowMagnitude(int magnitude);
 };
 }  // namespace sensoring

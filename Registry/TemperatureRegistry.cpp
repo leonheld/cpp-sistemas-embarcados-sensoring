@@ -38,13 +38,13 @@ auto TemperatureRegistry::Delete() -> void {
 auto TemperatureRegistry::Consult() -> void {
   std::cout
       << "There are three consulting options: " << std::endl
-      << "1. Consult all readings above a certain integer temperature."
+      << "1. Consult all readings above a certain date (day/month/year format)."
       << std::endl
-      << "2. Consult all readings below a certain integer temperature."
+      << "2. Consult all readings below a certain date (day/month/year format)."
       << std::endl
-      << "3. Consult all readings below a certain date (day/month/year format)."
+      << "3. Consult all readings above a certain integer temperature."
       << std::endl
-      << "4. Consult all readings above a certain date (day/month/year format)."
+      << "4. Consult all readings below a certain integer temperature."
       << std::endl;
 
   enum CONSULT_STATES {
@@ -99,8 +99,7 @@ auto TemperatureRegistry::Consult() -> void {
                    "to search for readings above such magnitude."
                 << std::endl;
       std::cin >> magnitude_option;
-      // FIXME(ljh): implement
-      // this->filterAndPrintAboveMagnitude(magnitude_option);
+      this->filterAndPrintAboveMagnitude(magnitude_option);
       break;
 
     case CONSULT_STATES::kReadingsBelowMagnitudeThreshold:
@@ -108,8 +107,7 @@ auto TemperatureRegistry::Consult() -> void {
                    "to search for readings below such magnitude."
                 << std::endl;
       std::cin >> magnitude_option;
-      // FIXME(ljh): implement
-      // this->filterAndPrintBelowMagnitude(magnitude_option);
+      this->filterAndPrintBelowMagnitude(magnitude_option);
       break;
 
     default:
@@ -144,4 +142,24 @@ auto TemperatureRegistry::filterAndPrintBelowDate(int day, int month, int year)
     }
   }
 }
+void TemperatureRegistry::filterAndPrintAboveMagnitude(int magnitude) {
+  std::cout << "Listing all reads above " << magnitude << "º Celsius"
+            << std::endl;
+  for (int i = 0; i < readings_.number_of_elements(); ++i) {
+    if (!readings_[i].readingBelow(magnitude)) {
+      readings_[i].prettyPrint();
+    }
+  }
+}
+
+void TemperatureRegistry::filterAndPrintBelowMagnitude(int magnitude) {
+  std::cout << "Listing all reads below " << magnitude << "º Celsius"
+            << std::endl;
+  for (int i = 0; i < readings_.number_of_elements(); ++i) {
+    if (readings_[i].readingBelow(magnitude)) {
+      readings_[i].prettyPrint();
+    }
+  }
+}
+
 }  // namespace sensoring

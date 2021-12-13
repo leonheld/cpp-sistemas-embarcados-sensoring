@@ -3,8 +3,8 @@
 #include <string>
 
 namespace {
-// Like this one -> https://www.ti.com/lit/ds/symlink/lm35.pdf
-const int kTemperatureSensorId = 0001;
+// just a random number for a given sensor.
+const int kTemperatureSensorId = 1;
 }  // namespace
 
 namespace sensoring {
@@ -46,5 +46,8 @@ bool Temperature::wasDoneBefore(int day, int month, int year) {
 
   return dateTime_->year() < year && dateTime_->month() < month &&
          dateTime_->day() < day;
+}
+bool Temperature::readingBelow(int magnitude) {
+  return magnitude > this->getValor();
 }
 }  // namespace sensoring

@@ -18,6 +18,8 @@ class Temperature : public Sensor {
 
   bool wasDoneBefore(int day, int month, int year);
 
+  bool readingBelow(int magnitude);
+
  private:
   auto readSensor() -> void override;
   static auto GetRandomNumberForTemperature() -> float;
