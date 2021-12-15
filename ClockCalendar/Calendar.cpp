@@ -7,11 +7,6 @@
 #include <string>
 
 namespace utils {
-auto Calendar::readCalendar(int& month, int& day, int& year) -> void {
-  month = month_;
-  day = day_;
-  year = year_;
-}
 auto Calendar::CalendarNow() -> void {
   using namespace std::chrono;
 

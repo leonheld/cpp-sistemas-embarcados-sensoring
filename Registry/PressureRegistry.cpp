@@ -3,9 +3,14 @@
 namespace sensoring {
 
 auto PressureRegistry::ReadAndSave() -> void {
-  auto current_Pressure = new Pressure();
-  current_Pressure->newRead();
-  readings_.push_back(*current_Pressure);
+  auto current_pressure = new Pressure();
+  current_pressure->newRead();
+  readings_.push_back(*current_pressure);
+  if (!current_pressure->readingBelow(60)) {
+    this->valid_.push_back(false);
+    return;
+  }
+  this->valid_.push_back(true);
 }
 
 auto PressureRegistry::List() -> void {

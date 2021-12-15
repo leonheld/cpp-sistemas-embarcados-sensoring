@@ -7,12 +7,6 @@
 #include <string>
 
 namespace utils {
-auto Clock::readClock(int& hour, int& second, int& minute) -> void {
-  hour = hour_;
-  second = second_;
-  minute = minute_;
-}
-
 auto Clock::ClockNow() -> void {  // nothing makes me happier than
                                   // std::chrono. Maybe std::fmt will.
   using namespace std::chrono;

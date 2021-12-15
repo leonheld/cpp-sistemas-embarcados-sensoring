@@ -11,7 +11,7 @@ class Registry {
   virtual auto Consult() -> void = 0;
   virtual auto Delete() -> void = 0;
 
- private:
+ protected:
   utils::Vector<bool> valid_ = utils::Vector<bool>();
 };
 }  // namespace sensoring

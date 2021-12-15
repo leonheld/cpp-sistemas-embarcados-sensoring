@@ -24,9 +24,9 @@ auto Pressure::readSensor() -> void {
 auto Pressure::GetRandomNumberForPressure() -> float {
   std::random_device random_seed;
   std::mt19937 generator(random_seed());
-  // this range is the average minimum and average maximum Pressures for
-  // Florianópolis :)
-  std::uniform_real_distribution<float> distribution(16.0, 28.0);
+  // pressures at sea level and 1000m altitude, got it from Wolfram Alpha, in
+  // KPa.
+  std::uniform_real_distribution<float> distribution(100, 90);
   return static_cast<float>(distribution(generator));
 }
 

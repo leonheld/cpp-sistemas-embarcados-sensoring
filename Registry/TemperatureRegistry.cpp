@@ -6,6 +6,12 @@ auto TemperatureRegistry::ReadAndSave() -> void {
   auto current_temperature = new Temperature();
   current_temperature->newRead();
   readings_.push_back(*current_temperature);
+  // check this to say, removing outliers or spikes.
+  if (!current_temperature->readingBelow(60)) {
+    this->valid_.push_back(false);
+    return;
+  }
+  this->valid_.push_back(true);
 }
 
 auto TemperatureRegistry::List() -> void {
